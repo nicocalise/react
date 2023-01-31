@@ -3,6 +3,7 @@ import React, { createContext, useState } from "react";
 export const LanguageContext = createContext(null);
 
 export const LangProvider = ({ children }) => {
+
   const [lang, setLang] = useState('es');
 
   const store = {
@@ -11,5 +12,6 @@ export const LangProvider = ({ children }) => {
   };
 
   return <LanguageContext.Provider value={store}>{children}</LanguageContext.Provider>;
+
 }
 

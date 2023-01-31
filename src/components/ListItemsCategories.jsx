@@ -1,20 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { LanguageContext } from '../context/LanguageContext';
 
 const ListItemsCategories = (props) => {
-    const apiBase = 'https://v2.jokeapi.dev/joke/'    
-    const url = `${apiBase}/${props.name}?amount=10`;
+
+    const { lang } = useContext(LanguageContext)
+    const apiBase = 'https://v2.jokeapi.dev/joke'    
+    const url = `${apiBase}/${props.name}?lang=${lang}&amount=10`;
     
     let [jokes, setJokes] = useState([]);
     
     useEffect(() => {
       fetch(url)
         .then(response => response.json())
-        .then(data => {setJokes(data.jokes)})
-    }, [props]); 
+        .then(data => {
+            if (data.error){
+                console.log(`no hay chistes para el lenguaje ${lang}`)
+                return;
+            } else{
+                setJokes(data.jokes)
+            }
+            })
+    }, [props, lang]); 
     
     return (
         <div>
-            { 
+            {   
                 jokes.map((joke, key) => (
                 <div key={ key }>
                     <p>{ joke.setup }</p>

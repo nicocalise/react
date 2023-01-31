@@ -1,20 +1,14 @@
 import React, { useContext} from 'react'
-import ListItemsLanguages from './ListItemsLanguages'
 import { LanguageContext } from '../context/LanguageContext'
-
-//const formValueDefault = {
-//    lang: 'es'
-//  };
+import ListItemsLanguages from './ListItemsLanguages'
 
 const Languages = () => {
-    //const [formValue, setFormValue] = useState(formValueDefault);
-    const { lang , setLang } = useContext(LanguageContext)
-    
 
+    const { lang , setLang } = useContext(LanguageContext)
+  
   const handleSelect = (ev) => {
-    debugger
     const language = ev.target.value;
-    setLang(lang === language ? 'es' : 'en')
+    setLang(language === 'es' ? 'es' : 'en')
     console.log(lang)
     }
 
@@ -23,13 +17,13 @@ const Languages = () => {
         <form>
             <label>
                Language:
-              <select value = {lang} onChange={handleSelect}>
+              <select value = {lang} onChange = {handleSelect}>
                 <option value="es">Spanish</option>
                 <option value="en">English</option>
               </select>
             </label>
-          <ListItemsLanguages value={lang}/>
         </form>
+        <ListItemsLanguages value = {lang} />
     </div>
   )
 }
